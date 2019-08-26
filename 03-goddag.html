@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="da">
 
@@ -15,24 +11,17 @@
 </head>
 
 <html>
+
+<p>hvad er dit navn?</p>
+
 <input type="text" id="name"></html>
+<button>Klik og kig i consolen</button>
 
 <script>
-    let laengde = 3;
-    let bredde = 5;
-    let areal;
-    //    let areal = laengde * bredde;
+    document.querySelector("button").addEventListener("click", button_clicked);
 
-
-    function arealUdregning() {
-        areal = laengde * bredde;
-        window.console.log(areal);
+    function button_clicked() {
+        console.log(`Goddag ${document.querySelector("#name").value}!`);
     }
 
-
 </script>
-
-minKnap.addEventListener("click",funktionDerAktiveresNårDerKlikkes);
-function funktionDerAktiveresNårDerKlikkes(){
-console.log(“Du har klikket på knappen”);
-}
