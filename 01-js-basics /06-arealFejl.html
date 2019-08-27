@@ -12,9 +12,9 @@
 
 <body>
     <p>hvad er længden?</p>
-    <input type="number" id="længde">
+    <input type="text" id="længde">
     <p>hvad er bredden?</p>
-    <input type="number" id="bredde">
+    <input type="text" id="bredde">
 
 
 
@@ -29,15 +29,19 @@
             let længde = document.querySelector("#længde").value;
             let bredde = document.querySelector("#bredde").value;
             let areal = længde * bredde;
-            if (areal <= 0) {
+
+
+            if (areal <= 0 || isNaN(areal)) {
                 console.log("Ugyldig indtastning");
             } else if (areal > 0) {
                 console.log(`Arealet er ${længde * bredde} m2`);
             }
         }
+
     </script>
 
-    erTal = isNaN(tal); // er sand, hvis tal ikke er et tal - her er den false (NaN - Not a Number)
 
 
-</body></html>
+</body>
+
+</html>

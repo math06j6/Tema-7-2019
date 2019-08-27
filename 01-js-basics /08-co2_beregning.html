@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+
+    <!--    <link rel="stylesheet" type="text/css" href="style.css">-->
+</head>
+
+<html>
+
+<h1>Udregn hvor meget CO2 du bruger på en flyrejse:</h1>
+
+<p>Hvor mange timer flyver du?</p>
+<input type="number" id="timer">
+
+</html>
+<button>Beregn</button>
+
+<script>
+    let co2 = 109;
+    let timer;
+    let co2UdledtIKgVedFlyrejse;
+    //    let areal = laengde * bredde;
+
+
+
+    co2UdledtIKgVedFlyrejse();
+
+    function co2UdledtIKgVedFlyrejse() {
+        areal = timer * co2;
+        window.console.log(areal);
+
+
+    }
+
+
+
+    document.querySelector("button").addEventListener("click", button_clicked);
+
+    function button_clicked() {
+        console.log(`Goddag ${document.querySelector("#name").value}!`);
+    }
+
+</script>
