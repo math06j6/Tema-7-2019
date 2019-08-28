@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+        body {}
+
+        .box {
+            display: inline-block;
+            width: 10vw;
+            height: 10vw;
+            border: 2px solid black;
+            margin: 5vw;
+            transition: all 1s;
+        }
+
+        .class1 {
+            background-color: royalblue;
+            border: none;
+            transition: ease 6s;
+            border-radius: 50% 50%;
+        }
+
+        .class2 {
+            border: dotted 20px orange;
+            transition: all 4s;
+        }
+
+        /*********************/
+    </style>
+
+</head>
+
+<body>
+    <div class="box" id="box1"></div>
+    <div class="box" id="box2"></div>
+    <div class="box" id="box3"></div>
+    <div class="box" id="box4"></div>
+
+    <script>
+        let box1 = document.querySelector("#box1");
+        let box2 = document.querySelector("#box2");
+        let box3 = document.querySelector("#box3");
+        let box4 = document.querySelector("#box4");
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log("start");
+            box3.removeEventListener("click", start);
+            box4.removeEventListener("click", start);
+            box1.addEventListener("click", function() {
+                box1.classList.toggle("class1");
+            })
+            box2.addEventListener("click", function() {
+                box2.classList.toggle("class2");
+            })
+            box3.addEventListener("click", box3afvent);
+            box4.addEventListener("click", box4afvent)
+        }
+
+        function box3afvent() {
+            console.log("box3afvent");
+            box3.removeEventListener("click", box3afvent);
+            box3styling();
+        }
+
+        function box4styling() {
+            console.log("back2");
+            box3.style.height = "5px";
+            box3.style.backgroundColor = "olive";
+            box3.style.borderRadius = "20px";
+            box3.style.transition = "ease-in-out 4s";
+
+        }
+
+        function box4afvent() {
+            console.log("box4afvent");
+            box4.removeEventListener("click", box4afvent);
+            box4styling();
+        }
+
+        function box4styling() {
+            console.log("box4styling");
+            box4.style.border = '10px solid black';
+        }
+    </script>
+</body></html>
