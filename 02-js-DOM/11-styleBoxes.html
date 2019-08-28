@@ -29,7 +29,6 @@
             transition: all 4s;
         }
 
-        /*********************/
     </style>
 
 </head>
@@ -52,12 +51,15 @@
             console.log("start");
             box3.removeEventListener("click", start);
             box4.removeEventListener("click", start);
+
             box1.addEventListener("click", function() {
                 box1.classList.toggle("class1");
             })
+
             box2.addEventListener("click", function() {
                 box2.classList.toggle("class2");
             })
+
             box3.addEventListener("click", box3afvent);
             box4.addEventListener("click", box4afvent)
         }
@@ -87,5 +89,8 @@
             console.log("box4styling");
             box4.style.border = '10px solid black';
         }
+
     </script>
-</body></html>
+</body>
+
+</html>
