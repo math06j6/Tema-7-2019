@@ -5,51 +5,94 @@
     <title>Visdyr</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        article {
+            border: 2px solid black;
+            margin-bottom: 1rem;
+            padding: 2rem;
+            width: 300px;
+            margin: 1vw;
+        }
+
+
+        p {
+            line-height: 1rem;
+        }
+    </style>
 </head>
 
 <body>
-    <article id="liste"></article>
+
+    <h1>ALLE DYR</h1>
+
+    <template>
+        <article>
+            <h2></h2>
+            <img src="" alt="">
+            <p id="type">Type:</p>
+            <p id="levested">Levested:</p>
+        </article>
+    </template>
+
+
+
+    <section id="liste"></section>
+
+
     <script>
-        let alleDyr = [{
-                "navn": "frø",
+        const skabelon = document.querySelector("template").content;
+        const liste = document.querySelector("#liste");
+        console.log(skabelon);
+
+        const alle = [{
+                "navn": "Frø",
                 "type": "amfibie",
                 "billede": "http://mabe-kea.dk/E19/pics/frog.png",
                 "levested": "vandhullet"
             },
             {
-                "navn": "gris",
+                "navn": "Gris",
                 "type": "pattedyr",
                 "billede": "http://mabe-kea.dk/E19/pics/pig.png",
                 "levested": "grisefarmen"
             },
             {
-                "navn": "ræv",
+                "navn": "Ræv",
                 "type": "pattedyr",
                 "billede": "http://mabe-kea.dk/E19/pics/fox.png",
                 "levested": "skoven"
             },
             {
-                "navn": "sild",
+                "navn": "Sild",
                 "type": "fisk",
                 "billede": "http://mabe-kea.dk/E19/pics/sild.jpg",
                 "levested": "havet"
             },
             {
-                "navn": "krokodille",
+                "navn": "Krokodille",
                 "type": "krybdyr",
                 "billede": "http://mabe-kea.dk/E19/pics/kroko.jpg",
                 "levested": "floden"
             }
         ];
 
-        document.addEventListener("DOMContentLoaded", start);
 
-        function start() {
-            console.log(start);
-            const destination = document.querySelector("#liste");
-            alleDyr.forEach(dyr => {
-                destination.innerHTML += `${dyr.navn}, ${dyr.type} fra ${dyr.levested} <br>`;
-            })
-        }
+        alle.forEach(dyr => {
+            const klon = skabelon.cloneNode(true);
+            console.log(klon);
+            const h2 = klon.querySelector("h2");
+            const type = klon.querySelector("#type");
+            const levested = klon.querySelector("#levested");
+            const img = klon.querySelector("img");
+
+            h2.textContent = `${dyr.navn}`;
+            type.textContent = `Type: ${dyr.type}`;
+            levested.textContent = `Levested: ${dyr.levested}`;
+            img.src = dyr.billede;
+            img.alt = "billede af " + dyr.navn;
+            console.log("klon prøve");
+            liste.appendChild(klon);
+        })
     </script>
 </body></html>
