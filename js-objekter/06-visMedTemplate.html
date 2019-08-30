@@ -19,6 +19,11 @@
         p {
             line-height: 1rem;
         }
+
+        section {
+            grid-gap: 1rem;
+        }
+
     </style>
 </head>
 
@@ -45,7 +50,7 @@
         const liste = document.querySelector("#liste");
         console.log(skabelon);
 
-        const alle = [{
+        const alleDyr = [{
                 "navn": "Frø",
                 "type": "amfibie",
                 "billede": "http://mabe-kea.dk/E19/pics/frog.png",
@@ -78,7 +83,7 @@
         ];
 
 
-        alle.forEach(dyr => {
+        alleDyr.forEach(dyr => {
             const klon = skabelon.cloneNode(true);
             console.log(klon);
             const h2 = klon.querySelector("h2");
@@ -94,5 +99,8 @@
             console.log("klon prøve");
             liste.appendChild(klon);
         })
+
     </script>
-</body></html>
+</body>
+
+</html>
