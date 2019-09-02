@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #person_liste {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+
+        article {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            border: 2px solid black;
+            padding: 2rem;
+        }
+
+        article img {
+            width: 100%;
+            object-fit: cover;
+            flex-grow: 1;
+            margin: 1rem 0;
+
+        }
+
+        p {
+            line-height: 1rem;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Personlisteopgave</h1>
+
+    <template>
+        <article class="dyr">
+            <h2></h2>
+            <img src="" alt="">
+
+            <p id="github">Github:
+                <a href></a>
+            </p>
+            <p id="alder"></p>
+            <p id="koen"></p>
+            <p id="email"></p>
+            <p id="hold"></p>
+            <p id="historie"></p>
+        </article>
+    </template>
+
+    <section id="person_liste"></section>
+
+    <script>
+        let holdListe = [];
+        let personer;
+        let filter = "k";
+        const theTemplatepointer = document.querySelector("template");
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            hentJson();
+        }
+
+        async function hentJson() {
+            const jsonUrl = "https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json";
+            const response = await fetch(jsonUrl);
+
+            console.log(response);
+            holdListe = await response.json();
+            console.log(holdListe);
+
+            visJson();
+
+        }
+
+
+        function visJson() {
+
+            const skabelon = document.querySelector("template").content;
+            const listeElm = document.querySelector("#person_liste");
+
+            console.log(skabelon);
+            holdListe.feed.entry.forEach((person) => {
+
+                if (person.gsx$køn.$t == filter) {
+                    const klon = theTemplatepointer.cloneNode(true).content;
+
+
+//                    const klon = skabelon.cloneNode(true);
+
+
+                    console.log(klon);
+
+                    const h2 = klon.querySelector("h2");
+                    h2.textContent = person.gsx$navn.$t;
+
+                    const alder = klon.querySelector("#alder");
+                    alder.textContent += " Alder: " + person.gsx$alder.$t;
+
+                    const koen = klon.querySelector("#koen");
+                    koen.textContent += " Køn: " + person.gsx$køn.$t;
+
+                    const email = klon.querySelector("#email");
+                    email.textContent += " E-mail: " + person.gsx$email.$t;
+
+                    const a = klon.querySelector("a");
+                    a.href = "https://github.com/" + person.gsx$github.$t;
+                    a.textContent = person.gsx$github.$t;
+
+                    const hold = klon.querySelector("#hold");
+                    hold.textContent += " Hold: " + person.gsx$hold.$t;
+
+                    const historie = klon.querySelector("#historie");
+                    historie.textContent += " Historie: " + person.gsx$historie.$t;
+
+
+                    const img = klon.querySelector("img");
+                    img.src = person.gsx$billede.$t;
+                    img.alt = "Billede af " + person.gsx$navn.$t;
+
+                    listeElm.appendChild(klon);
+                }
+
+
+            })
+
+            hentJson();
+        }
+    </script>
+</body></html>
