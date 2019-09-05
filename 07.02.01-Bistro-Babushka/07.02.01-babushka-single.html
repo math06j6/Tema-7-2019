@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bistro Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        p {
+
+            font-weight: normal;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+
+        #detalje {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+
+
+        #detalje div {
+            border-radius: 100%;
+            margin: 10px;
+            background: #FE775A;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        #detalje .luk {
+            font-size: 1rem;
+            font-weight: 700;
+            background-color: transparent;
+            border: none;
+
+        }
+
+
+
+        .popup-content {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+
+
+            background: ;
+            overflow: auto;
+            max-width: 800px;
+            padding: 2rem;
+            margin: auto;
+        }
+
+        .popup-content h3 {}
+
+        .popup-content div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            padding-bottom: 1rem;
+        }
+
+
+        #menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 2rem;
+            margin: 1rem;
+        }
+
+
+        #menu-container article {
+            cursor: pointer;
+        }
+
+        article {
+            background: #efd7c8;
+
+        }
+
+        h2,
+        h3,
+        article p {
+            padding: 1rem;
+        }
+
+        h3,
+        article p {
+            padding: 0.5rem 1rem;
+        }
+
+        .popup-content h2,
+        .popup-content h3,
+        .popup-content p {
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="detalje">
+        <article class="popup-content">
+            <header class="popup-header">
+                <h2></h2>
+                <div><button class="luk">X</button></div>
+            </header>
+            <img src="" alt="">
+            <p class="lang"></p>
+            <p class="oprindelse"></p>
+            <p class="pris"></p>
+
+        </article>
+    </section>
+
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        console.log(id);
+
+
+        let retter;
+        const url = `https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json`;
+
+        document.addEventListener("DOMContentLoaded", start);
+
+
+
+
+        // første funktion der kaldes efter DOM er loaded
+        function start() {
+            console.log(start);
+            loadData();
+
+            document.querySelector(".luk").addEventListener("click", () => {
+                history.back();
+            });
+        }
+
+
+        // funktion der henter data fra Google sheet (via url)
+        async function loadData() {
+            console.log(loadData);
+            const response = await fetch(url);
+            retter = await response.json();
+            vis();
+        }
+        //funktion der viser personer i liste view
+        function vis() {
+            console.log(vis);
+
+            retter.feed.entry.forEach((ret) => { // loop igennem json (personer)
+                if (ret.gsx$id.$t == id) { // tjek hvilket github personen har og sammenlign med github
+                    //                    const klon = skabelon.cloneNode(true);
+
+
+
+                    document.querySelector("#detalje").style.display = "block";
+
+                    document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
+                    document.querySelector("#detalje img").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+                    document.querySelector("#detalje img").alt = ret.gsx$navn.$t;
+
+                    document.querySelector(".lang").textContent = ret.gsx$lang.$t;
+                    document.querySelector(".oprindelse").textContent =
+                        `Oprindelse: ${ret.gsx$oprindelse.$t}`;
+                    document.querySelector("#detalje .pris").textContent = `DKK: ${ret.gsx$pris.$t},-`;
+                    document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
+
+                }
+            })
+        }
+    </script>
+</body></html>

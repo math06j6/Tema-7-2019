@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bistro Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Sporting Grotesque_Bold';
+            src: url('fonts/Sporting_Grotesque-Bold_web.woff2') format('woff2'),
+                url('fonts/Sporting_Grotesque-Bold_web.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        h1 {
+            font-family: 'Sporting Grotesque_Bold';
+            font-weight: 800;
+            font-size: calc(2rem + 2vw);
+
+        }
+
+        .topnav p,
+        h2,
+        h3 {
+            font-family: 'Sporting Grotesque_Bold';
+            font-weight: 800;
+        }
+
+        p,
+        button {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: normal;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+
+        h2,
+        h3,
+        article p {
+            padding: 1rem;
+        }
+
+        h3,
+        article p {
+            padding: 0.5rem 1rem;
+        }
+
+        .popup-content h2,
+        .popup-content h3,
+        .popup-content p {
+            padding: 0.5rem 0;
+        }
+
+        .pris {
+            font-weight: 700;
+        }
+
+        #inddeling {
+            margin: 2.5rem;
+            text-align: center;
+        }
+
+
+
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+
+
+
+        .site_header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: #FE775A;
+        }
+
+        .topnav {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .topnav p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            max-width: 1400px;
+        }
+
+        nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        main,
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+
+        .menukort-header {
+            text-align: center;
+            margin: 5rem;
+        }
+
+        button {
+            font-size: 1rem;
+            padding: 5px;
+            margin: 1rem;
+            display: block;
+            background-color: white;
+            border: 1px solid black;
+        }
+
+        .valgt {
+            background-color: #468887;
+        }
+
+
+        footer {
+            background: #7293ff;
+            color: white;
+        }
+
+        footer section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 10px;
+        }
+
+        footer div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #detalje {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(20, 20, 20, 0.56);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+
+
+        #detalje div {
+            border-radius: 100%;
+            margin: 10px;
+            background: #FE775A;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        #detalje .luk {
+            font-size: 1rem;
+            font-weight: 700;
+            background-color: transparent;
+            border: none;
+
+        }
+
+
+
+        .popup-content {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+
+
+            background: ;
+            overflow: auto;
+            max-width: 800px;
+            padding: 2rem;
+            margin: auto;
+        }
+
+        .popup-content h3 {}
+
+        .popup-content div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            padding-bottom: 1rem;
+        }
+
+
+        #menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 2rem;
+            margin: 1rem;
+        }
+
+
+        #menu-container article {
+            cursor: pointer;
+        }
+
+        article {
+            background: #efd7c8;
+
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site_header">
+        <div class="topnav">
+            <p>Bistro Babushka</p>
+        </div>
+    </header>
+
+    <main>
+        <header class="menukort-header">
+            <h1>Menukort</h1>
+        </header>
+
+        <div class="menu">
+            <nav>
+                <button class="filter valgt" data-ret="alle">Alle Retter</button>
+                <button class="filter" data-ret="forretter">Forretter</button>
+                <button class="filter" data-ret="hovedretter">Hovedretter</button>
+                <button class="filter" data-ret="desserter">Desserter</button>
+                <button class="filter" data-ret="drikkevarer">Drikkevarer</button>
+            </nav>
+        </div>
+        <h2 id="inddeling" data-overskrift>Alle Retter</h2>
+        <section id="menu-container" data-container></section>
+    </main>
+
+    <section id="detalje">
+        <article class="popup-content">
+            <header class="popup-header">
+                <h2></h2>
+                <div><button class="luk">X</button></div>
+            </header>
+            <img src="" alt="">
+            <p class="lang"></p>
+            <p class="oprindelse"></p>
+            <p class="pris"></p>
+
+        </article>
+    </section>
+
+    <template>
+        <article class="ret">
+            <h2 class="navn"></h2>
+            <img src="" alt="" class="profil-billede">
+
+            <p class="kort"></p>
+            <p class="pris"></p>
+
+        </article>
+    </template>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        const url = `https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json`;
+        let retter;
+        let filter = "alle";
+        // første funktion der kaldes efter DOM er loaded
+        function start() {
+            const filterKnapper = document.querySelectorAll("nav button");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtreringRetter));
+            loadData();
+            skjulDetalje();
+            //            document.querySelector("#detalje").style.display = "none";
+        }
+
+        // funktion der filtrerer retter (json)
+        function filtreringRetter() {
+            filter = this.dataset.ret; // sæt variabel "filter" til aktuel værdi
+            document.querySelector(".valgt").classList.remove("valgt"); // fjern klassen valgt fra aktuel knap
+            this.classList.add("valgt") // marker den nyvalgte knap
+
+            document.querySelector("#inddeling").textContent = this.textContent;
+
+            vis(); // kald funktionen vis igen med nyt filter
+        }
+        // funktion der henter data fra Google sheet (via url)
+        async function loadData() {
+            const response = await fetch(url);
+            retter = await response.json();
+            vis();
+        }
+        //funktion der viser retter i liste view
+        function vis() {
+            const dest = document.querySelector("#menu-container"); // container til articles med en ret
+            const skabelon = document.querySelector("template").content; // select indhold af html skabelon (article)
+            dest.textContent = "";
+            retter.feed.entry.forEach(ret => { // loop igennem json (retter)
+                if (ret.gsx$kategori.$t == filter || filter == "alle") { // tjek hvilket køn personen har og sammenlign med filter eller vis alle
+                    const klon = skabelon.cloneNode(true);
+                    klon.querySelector(".navn").textContent = ret.gsx$navn.$t;
+                    klon.querySelector(".profil-billede").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector("img").alt = ret.gsx$navn.$t;
+                    klon.querySelector(".kort").textContent = ret.gsx$kort.$t;
+                    klon.querySelector(".pris").textContent = `DKK: ${ret.gsx$pris.$t},-`;
+                    klon.querySelector(".ret").addEventListener("click", () => {
+                        visDetalje(ret);
+                    });
+
+                    dest.appendChild(klon);
+
+                }
+            })
+        }
+
+        function visDetalje(ret) {
+            console.log(ret);
+            document.querySelector("#detalje").style.display = "block";
+
+            document.querySelector("#detalje .luk").addEventListener("click", skjulDetalje);
+
+            document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
+            document.querySelector("#detalje img").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+            document.querySelector("#detalje img").alt = ret.gsx$navn.$t;
+
+            document.querySelector(".lang").textContent = ret.gsx$lang.$t;
+            document.querySelector(".oprindelse").textContent =
+                `Oprindelse: ${ret.gsx$oprindelse.$t}`;
+            document.querySelector("#detalje .pris").textContent = `DKK: ${ret.gsx$pris.$t},-`;
+
+
+            //            document.querySelector("#detalje .githubLink").href = `https://github.com/${ret.gsx$github.$t}`;
+            //            document.querySelector("#detalje .githubLink").textContent = `https://github.com/${ret.gsx$github.$t}`;
+
+
+
+        }
+
+
+        function skjulDetalje(ret) {
+            document.querySelector("#detalje").style.display = "none";
+        }
+    </script>
+</body></html>

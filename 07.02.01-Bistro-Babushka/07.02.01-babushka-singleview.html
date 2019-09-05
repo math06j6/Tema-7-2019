@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bistro Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        p {
+            /*    font-family: '';*/
+            font-weight: normal;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+
+        .site_header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: #FE775A;
+        }
+
+        .topnav {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .topnav p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            max-width: 1400px;
+        }
+
+        nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        main,
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+
+        .menukort-header {
+            text-align: center;
+            margin: 5rem;
+        }
+
+        button {
+            font-size: 1rem;
+            padding: 5px;
+            margin: 1rem;
+            display: block;
+            background-color: white;
+            border: 1px solid black;
+        }
+
+        .valgt {
+            background-color: #468887;
+        }
+
+
+        footer {
+            background: #7293ff;
+            color: white;
+        }
+
+        footer section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 10px;
+        }
+
+        footer div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 2rem;
+            margin: 1rem;
+        }
+
+        #menu-container article {
+            cursor: pointer;
+        }
+
+        article {
+            background: #efd7c8;
+
+        }
+
+        h2,
+        h3,
+        article p {
+            padding: 1rem;
+        }
+
+        h3,
+        article p {
+            padding: 0.5rem 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site_header">
+        <div class="topnav">
+            <p>Bistro Babushka</p>
+        </div>
+    </header>
+
+    <main>
+        <header class="menukort-header">
+            <h1>Menukort</h1>
+        </header>
+
+        <div class="menu">
+            <nav>
+                <button class="filter valgt" data-ret="alle">Alle Retter</button>
+                <button class="filter" data-ret="forretter">Forretter</button>
+                <button class="filter" data-ret="hovedretter">Hovedretter</button>
+                <button class="filter" data-ret="desserter">Desserter</button>
+                <button class="filter" data-ret="drikkevarer">Drikkevarer</button>
+            </nav>
+        </div>
+        <h2 id="inddeling" data-overskrift>Alle Retter</h2>
+        <section id="menu-container" data-container></section>
+    </main>
+
+    <template>
+        <article class="ret">
+            <h2 class="navn"></h2>
+            <img src="" alt="" class="profil-billede">
+
+            <p class="kort"></p>
+            <p class="pris"></p>
+
+        </article>
+    </template>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        const url = `https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json`;
+        let retter;
+        let filter = "alle";
+        // første funktion der kaldes efter DOM er loaded
+        function start() {
+            const filterKnapper = document.querySelectorAll("nav button");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtreringRetter));
+            loadData();
+        }
+        // funktion der filtrerer retter (json)
+        function filtreringRetter() {
+            filter = this.dataset.ret; // sæt variabel "filter" til aktuel værdi
+            document.querySelector(".valgt").classList.remove("valgt"); // fjern klassen valgt fra aktuel knap
+            this.classList.add("valgt") // marker den nyvalgte knap
+
+            document.querySelector("#inddeling").textContent = this.textContent;
+
+            vis(); // kald funktionen vis igen med nyt filter
+        }
+        // funktion der henter data fra Google sheet (via url)
+        async function loadData() {
+            const response = await fetch(url);
+            retter = await response.json();
+            vis();
+        }
+        //funktion der viser retter i liste view
+        function vis() {
+            const dest = document.querySelector("#menu-container"); // container til articles med en ret
+            const skabelon = document.querySelector("template").content; // select indhold af html skabelon (article)
+            dest.textContent = "";
+            retter.feed.entry.forEach(ret => { // loop igennem json (retter)
+                if (ret.gsx$kategori.$t == filter || filter == "alle") { // tjek hvilket køn personen har og sammenlign med filter eller vis alle
+                    const klon = skabelon.cloneNode(true);
+                    klon.querySelector(".navn").textContent = ret.gsx$navn.$t;
+                    klon.querySelector(".profil-billede").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector("img").alt = ret.gsx$navn.$t;
+                    klon.querySelector(".kort").textContent = ret.gsx$kort.$t;
+                    klon.querySelector(".pris").textContent = `DKK: ${ret.gsx$pris.$t},-`;
+
+                    klon.querySelector(".ret").addEventListener("click", () => {
+
+                        location.href = `07.02.01-babushka-single.html?id=${ret.gsx$id.$t}`;
+
+                        //                        location.href = `06-detalje.html https://github.com/=${person.gsx$github.$t}`;
+
+
+                        //                        //
+                        // document.querySelector("#detalje .githubLink").href = `https://github.com/${person.gsx$github.$t}`;
+                    });
+
+                    dest.appendChild(klon);
+                }
+            })
+        }
+    </script>
+</body></html>
