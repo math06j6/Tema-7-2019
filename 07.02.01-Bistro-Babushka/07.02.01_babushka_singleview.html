@@ -6,6 +6,66 @@
     <title>Bistro Babushka</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Sporting Grotesque_Bold';
+            src: url('fonts/Sporting_Grotesque-Bold_web.woff2') format('woff2'),
+                url('fonts/Sporting_Grotesque-Bold_web.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        h1 {
+            font-family: 'Sporting Grotesque_Bold';
+            font-weight: 800;
+            font-size: calc(2rem + 2vw);
+
+        }
+
+        .topnav p,
+        h2,
+        h3 {
+            font-family: 'Sporting Grotesque_Bold';
+            font-weight: 800;
+        }
+
+        p,
+        button {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: normal;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+
+        h2,
+        h3,
+        article p {
+            padding: 1rem;
+        }
+
+        h3,
+        article p {
+            padding: 0.5rem 1rem;
+        }
+
+        .popup-content h2,
+        .popup-content h3,
+        .popup-content p {
+            padding: 0.5rem 0;
+        }
+
+        .pris {
+            font-weight: 700;
+        }
+
+        #inddeling {
+            margin: 2.5rem;
+            text-align: center;
+        }
+
+
+
         * {
             box-sizing: border-box;
             padding: 0;
@@ -16,13 +76,7 @@
             width: 100%;
         }
 
-        p {
-            /*    font-family: '';*/
-            font-weight: normal;
-            font-size: 1rem;
-            line-height: 1.5;
-            padding: 1rem;
-        }
+
 
         .site_header {
             position: sticky;
@@ -60,8 +114,6 @@
         }
 
         button {
-            font-size: 1rem;
-            padding: 5px;
             margin: 1rem;
             display: block;
             background-color: white;
@@ -103,19 +155,10 @@
 
         article {
             background: #efd7c8;
+            padding: 0 1rem;
 
         }
 
-        h2,
-        h3,
-        article p {
-            padding: 1rem;
-        }
-
-        h3,
-        article p {
-            padding: 0.5rem 1rem;
-        }
     </style>
 </head>
 
@@ -190,7 +233,7 @@
                 if (ret.gsx$kategori.$t == filter || filter == "alle") { // tjek hvilket køn personen har og sammenlign med filter eller vis alle
                     const klon = skabelon.cloneNode(true);
                     klon.querySelector(".navn").textContent = ret.gsx$navn.$t;
-                    klon.querySelector(".profil-billede").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector(".profil-billede").src = "imgs/small/" + ret.gsx$billede.$t + "-sm.jpg";
                     klon.querySelector("img").alt = ret.gsx$navn.$t;
                     klon.querySelector(".kort").textContent = ret.gsx$kort.$t;
                     klon.querySelector(".pris").textContent = `DKK: ${ret.gsx$pris.$t},-`;
@@ -210,5 +253,8 @@
                 }
             })
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

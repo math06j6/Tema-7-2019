@@ -6,6 +6,65 @@
     <title>Bistro Babushka</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Sporting Grotesque_Bold';
+            src: url('fonts/Sporting_Grotesque-Bold_web.woff2') format('woff2'),
+                url('fonts/Sporting_Grotesque-Bold_web.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        h1 {
+            font-family: 'Sporting Grotesque_Bold';
+            font-weight: 800;
+            font-size: calc(2rem + 2vw);
+
+        }
+
+        .topnav p,
+        h2,
+        h3 {
+            font-family: 'Sporting Grotesque_Bold';
+            font-weight: 800;
+        }
+
+        p,
+        button {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: normal;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+
+        h2,
+        h3,
+        article p {
+            padding: 1rem;
+        }
+
+        h3,
+        article p {
+            padding: 0.5rem 1rem;
+        }
+
+        .popup-content h2,
+        .popup-content h3,
+        .popup-content p {
+            padding: 0.5rem 0;
+        }
+
+        .pris {
+            font-weight: 700;
+        }
+
+        #inddeling {
+            margin: 2.5rem;
+            text-align: center;
+        }
+
+
         * {
             box-sizing: border-box;
             padding: 0;
@@ -16,13 +75,6 @@
             width: 100%;
         }
 
-        p {
-
-            font-weight: normal;
-            font-size: 1rem;
-            line-height: 1.5;
-            padding: 1rem;
-        }
 
         #detalje {
             position: fixed;
@@ -39,8 +91,6 @@
             padding: 3rem;
         }
 
-
-
         #detalje div {
             border-radius: 100%;
             margin: 10px;
@@ -56,8 +106,6 @@
             border: none;
 
         }
-
-
 
         .popup-content {
             display: flex;
@@ -105,24 +153,8 @@
 
         article {
             background: #efd7c8;
+            padding: 0 1rem;
 
-        }
-
-        h2,
-        h3,
-        article p {
-            padding: 1rem;
-        }
-
-        h3,
-        article p {
-            padding: 0.5rem 1rem;
-        }
-
-        .popup-content h2,
-        .popup-content h3,
-        .popup-content p {
-            padding: 0.5rem 0;
         }
     </style>
 </head>
@@ -182,19 +214,15 @@
 
             retter.feed.entry.forEach((ret) => { // loop igennem json (personer)
                 if (ret.gsx$id.$t == id) { // tjek hvilket github personen har og sammenlign med github
-                    //                    const klon = skabelon.cloneNode(true);
-
-
+                    //
 
                     document.querySelector("#detalje").style.display = "block";
 
                     document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
-                    document.querySelector("#detalje img").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+                    document.querySelector("#detalje img").src = "imgs/large/" + ret.gsx$billede.$t + ".jpg";
                     document.querySelector("#detalje img").alt = ret.gsx$navn.$t;
-
                     document.querySelector(".lang").textContent = ret.gsx$lang.$t;
-                    document.querySelector(".oprindelse").textContent =
-                        `Oprindelse: ${ret.gsx$oprindelse.$t}`;
+                    document.querySelector(".oprindelse").textContent = `Oprindelse: ${ret.gsx$oprindelse.$t}`;
                     document.querySelector("#detalje .pris").textContent = `DKK: ${ret.gsx$pris.$t},-`;
                     document.querySelector("#detalje h2").textContent = ret.gsx$navn.$t;
 
