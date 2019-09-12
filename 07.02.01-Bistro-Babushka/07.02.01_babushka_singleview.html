@@ -36,17 +36,26 @@
             font-size: 1rem;
             line-height: 1.5;
             padding: 1rem;
+
+        }
+
+        button {
+            margin: 1rem;
+            display: block;
+            background-color: white;
+            border: 1px solid black;
+            cursor: pointer;
         }
 
         h2,
-        h3,
-        article p {
-            padding: 1rem;
+        h3 {
+            line-height: 1.2;
+            padding: 2rem 0;
         }
 
-        h3,
+
         article p {
-            padding: 0.5rem 1rem;
+            padding: 2rem 0;
         }
 
         .popup-content h2,
@@ -55,8 +64,13 @@
             padding: 0.5rem 0;
         }
 
+        p.lang {
+            padding-top: 2rem;
+        }
+
         .pris {
             font-weight: 700;
+            padding: 0;
         }
 
         #inddeling {
@@ -98,7 +112,8 @@
 
         nav {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 1rem;
         }
 
         main,
@@ -113,15 +128,8 @@
             margin: 5rem;
         }
 
-        button {
-            margin: 1rem;
-            display: block;
-            background-color: white;
-            border: 1px solid black;
-        }
-
         .valgt {
-            background-color: #468887;
+            background-color: #9ad3b7;
         }
 
 
@@ -154,11 +162,12 @@
         }
 
         article {
+            display: flex;
+            flex-flow: column;
+            padding: 1rem;
             background: #efd7c8;
-            padding: 0 1rem;
 
         }
-
     </style>
 </head>
 
@@ -189,12 +198,11 @@
 
     <template>
         <article class="ret">
-            <h2 class="navn"></h2>
             <img src="" alt="" class="profil-billede">
 
+            <h2 class="navn"></h2>
             <p class="kort"></p>
             <p class="pris"></p>
-
         </article>
     </template>
     <script>
@@ -253,8 +261,5 @@
                 }
             })
         }
-
     </script>
-</body>
-
-</html>
+</body></html>
